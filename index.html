@@ -176,7 +176,18 @@ noBtn.addEventListener("mouseover", moveButton);
 noBtn.addEventListener("click", moveButton);
 
 /* YES CLICK */
-yesBtn.addEventListener("click", function() {
+ yesBtn.addEventListener("click", function() {
+        message.innerHTML = `
+            You have unlocked: "Baddie Perks 😍😍😍😍" <br><br>
+            ✔ Manbeating on demand <br>
+            ✔ Attentive listening to yaps <br>
+            ✔ Random meme sharing <br>
+            ✔ Mild roasting, professional level <br>
+            ✔ Premium chaos management
+        `;
+        startConfetti();
+    });
+  yesBtn.addEventListener("click", function() {
     message.innerHTML = "😍😍😍😍 You have unlocked: "Soft Launch Era" <br><br>
             ✔ Manbeating on demand <br>
             ✔ Attentive listening to yaps <br>
@@ -243,4 +254,5 @@ function animateConfetti() {
 </script>
 </body>
 </html>
+
 
