@@ -1,0 +1,240 @@
+<!LINKTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Vasha ❤️</title>
+<style>
+/* BODY & BACKGROUND */
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url("https://images.unsplash.com/photo-1519681393784-d120267933ba") no-repeat center center/cover;
+    position: relative;
+    overflow-x: hidden;
+    color: white;
+}
+
+/* Dark overlay for readability */
+body::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.35);
+    z-index: 0;
+}
+
+/* MAIN CONTAINER */
+.container {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+    padding: 80px 40px 40px 40px; /* extra top padding to lower image */
+    border-radius: 25px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 0 40px rgba(255, 200, 220, 0.3);
+    transition: padding 0.5s ease; /* smooth expansion on Yes click */
+}
+
+/* VASHA IMAGE ON TOP */
+#vashaImg {
+    width: 180px;
+    height: auto;
+    max-height: 220px;
+    object-fit: contain;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(255,192,203,0.6); /* soft pink glow */
+    margin-bottom: 20px;
+    transition: box-shadow 0.5s, transform 0.5s; /* smooth glow & movement */
+    animation: glowPulse 2s infinite alternate;
+}
+
+@keyframes glowPulse {
+    from { box-shadow: 0 10px 25px rgba(255,192,203,0.3); }
+    to { box-shadow: 0 15px 35px rgba(255,182,193,0.7); }
+}
+
+/* HEADING TEXT (decreased size) */
+h1 {
+    font-size: 1.5rem; /* smaller text */
+    line-height: 1.6;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px rgba(255,182,193,0.7), 0 0 20px rgba(255,182,193,0.5);
+}
+
+/* BUTTONS */
+.btn-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+button {
+    padding: 15px 35px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#yesBtn { background: #ff4b5c; color: white; }
+#noBtn { background: white; color: #ff4b5c; }
+
+button:hover { transform: scale(1.1); }
+
+/* MESSAGE AFTER YES */
+#message {
+    margin-top: 30px;
+    font-size: 1.6rem;
+    font-weight: bold;
+    text-shadow: 0 0 15px rgba(255,182,193,0.6);
+}
+
+/* FLOATING HEARTS */
+.heart {
+    position: absolute; /* absolute so it doesn't push content */
+    bottom: -20px;
+    font-size: 20px;
+    animation: floatUp linear forwards;
+    pointer-events: none;
+}
+
+@keyframes floatUp {
+    to { transform: translateY(-110vh); opacity: 0; }
+}
+
+/* CONFETTI CANVAS */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 3;
+}
+</style>
+</head>
+<body>
+
+<!-- BACKGROUND MUSIC -->
+<audio id="bgMusic" autoplay loop>
+    <source src="romantic.mp3" type="audio/mpeg">
+</audio>
+
+<canvas id="confetti"></canvas>
+
+<div class="container">
+
+    <!-- VASHA IMAGE -->
+    <img id="vashaImg" src="vasha2.jpg" alt="Vasha">
+
+    <!-- ROMANTIC TEXT -->
+    <h1>
+        I've really appreciated having you in my life,<br>
+        You make things brighter without even trying,<br><br>
+        And today I wanna ask you one question....<br><br>
+        <strong>Will you be my valentine Vasha ? ❤️</strong>
+    </h1>
+
+    <!-- BUTTONS -->
+    <div class="btn-container">
+        <button id="yesBtn">Yes 💖</button>
+        <button id="noBtn">No 😢</button>
+    </div>
+
+    <div id="message"></div>
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const message = document.getElementById("message");
+const bgMusic = document.getElementById("bgMusic");
+const container = document.querySelector('.container');
+
+/* PLAY MUSIC AFTER FIRST INTERACTION */
+document.body.addEventListener("click", () => { bgMusic.play().catch(()=>{}); }, { once: true });
+
+/* MOVE NO BUTTON */
+function moveButton() {
+    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+    noBtn.style.position = "fixed";
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+}
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("click", moveButton);
+
+/* YES CLICK */
+yesBtn.addEventListener("click", function() {
+    message.innerHTML = "😍😍😍😍 🎆💕";
+    container.style.paddingTop = "40px"; //
+    startConfetti();
+    startHearts();
+});
+
+/* FLOATING HEARTS AFTER YES */
+function startHearts() {
+    function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "💖";
+        heart.style.left = Math.random() * container.offsetWidth + "px";
+        heart.style.bottom = "0px";
+        heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+        heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+        container.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+    }
+    setInterval(createHeart, 400);
+}
+
+/* CONFETTI */
+const canvas = document.getElementById("confetti");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+let confettiPieces = [];
+
+function startConfetti() {
+    confettiPieces = [];
+    for (let i = 0; i < 300; i++) {
+        confettiPieces.push({
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            size: Math.random() * 8 + 4,
+            speedX: (Math.random() - 0.5) * 20,
+            speedY: (Math.random() - 0.5) * 20,
+            color: `hsl(${Math.random()*360},100%,50%)`,
+            life: 120
+        });
+    }
+    animateConfetti();
+}
+
+function animateConfetti() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    confettiPieces.forEach((p,index)=>{
+        ctx.fillStyle = p.color;
+        ctx.fillRect(p.x,p.y,p.size,p.size);
+        p.x += p.speedX;
+        p.y += p.speedY;
+        p.speedY += 0.4;
+        p.life--;
+        if(p.life<=0) confettiPieces.splice(index,1);
+    });
+    if(confettiPieces.length>0) requestAnimationFrame(animateConfetti);
+}
+</script>
+</body>
+</html>
