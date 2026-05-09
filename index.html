@@ -1,157 +1,504 @@
-<script>
-const noBtn = document.getElementById("noBtn");
-const yesBtn = document.getElementById("yesBtn");
-const message = document.getElementById("message");
-const bgMusic = document.getElementById("bgMusic");
-const container = document.querySelector('.container');
+<!DOCTYPE html>
+<html lang="en">
 
-/* PLAY MUSIC AFTER FIRST INTERACTION */
-document.body.addEventListener("click", () => {
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Happy Mother's Day Neha 💖
+    </title>
+
+<style>
+
+body{
+
+    margin:0;
+    padding:0;
+
+    overflow:hidden;
+
+    font-family:Arial,sans-serif;
+
+    background:
+    linear-gradient(
+        to bottom,
+        #ffd6e7,
+        #fff
+    );
+
+    height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* MAIN CARD */
+
+.container{
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:25px;
+
+    text-align:center;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.2);
+
+    position:relative;
+
+    z-index:2;
+
+    width:80%;
+    max-width:650px;
+
+    overflow:hidden;
+}
+
+/* TITLE */
+
+h1{
+
+    color:#ff4f81;
+
+    font-size:42px;
+
+    margin-bottom:10px;
+}
+
+/* PHOTO */
+
+.photo{
+
+    width:220px;
+    height:220px;
+
+    object-fit:cover;
+
+    border-radius:50%;
+
+    border:6px solid #ff4f81;
+
+    margin-top:15px;
+    margin-bottom:20px;
+
+    box-shadow:
+    0 0 25px rgba(255,79,129,0.5);
+
+    animation:
+    float 3s ease-in-out infinite;
+}
+
+/* MESSAGE */
+
+#message{
+
+    margin-top:15px;
+
+    font-size:20px;
+
+    color:#444;
+
+    line-height:1.6;
+}
+
+/* BUTTONS */
+
+button{
+
+    margin:15px;
+
+    padding:15px 28px;
+
+    border:none;
+
+    border-radius:50px;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+#yesBtn{
+
+    background:#ff4f81;
+
+    color:white;
+}
+
+#yesBtn:hover{
+
+    transform:scale(1.1);
+}
+
+#noBtn{
+
+    background:#ddd;
+}
+
+/* FLOATING HEARTS */
+
+.heart{
+
+    position:absolute;
+
+    animation:
+    floatUp linear forwards;
+}
+
+@keyframes floatUp{
+
+    from{
+
+        transform:translateY(0);
+
+        opacity:1;
+    }
+
+    to{
+
+        transform:translateY(-500px);
+
+        opacity:0;
+    }
+}
+
+/* PHOTO FLOAT */
+
+@keyframes float{
+
+    0%{
+
+        transform:translateY(0px);
+    }
+
+    50%{
+
+        transform:translateY(-10px);
+    }
+
+    100%{
+
+        transform:translateY(0px);
+    }
+}
+
+/* CONFETTI */
+
+#confetti{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    pointer-events:none;
+
+    z-index:1;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<canvas id="confetti"></canvas>
+
+<div class="container">
+
+    <h1>
+        Happy Mother’s Day Neha 💐
+    </h1>
+
+    <!-- PUT YOUR PHOTO -->
+    <img
+        src="neha.jpg"
+        alt="Neha"
+        class="photo"
+    >
+
+    <p id="message">
+
+        You are the sweetest,
+        most caring and most beautiful
+        person in my life 💖
+
+    </p>
+
+    <div class="buttons">
+
+        <button id="yesBtn">
+            Click Me 💖
+        </button>
+
+        <button id="noBtn">
+            No 😭
+        </button>
+
+    </div>
+
+</div>
+
+<!-- MUSIC -->
+<audio id="bgMusic" loop>
+
+    <!-- PUT YOUR SONG FILE -->
+    <source src="music.mp3"
+            type="audio/mpeg">
+
+</audio>
+
+<script>
+
+const noBtn =
+document.getElementById("noBtn");
+
+const yesBtn =
+document.getElementById("yesBtn");
+
+const message =
+document.getElementById("message");
+
+const bgMusic =
+document.getElementById("bgMusic");
+
+const container =
+document.querySelector('.container');
+
+/* PLAY MUSIC */
+
+document.body.addEventListener(
+    "click",
+    () => {
+
     bgMusic.play().catch(()=>{});
+
 }, { once: true });
 
-/* MOVE NO BUTTON ON HOVER */
+/* MOVE NO BUTTON */
+
 function moveButton() {
-    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
 
-    noBtn.style.position = "fixed";
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
+    const x =
+    Math.random() *
+    (window.innerWidth -
+    noBtn.offsetWidth);
+
+    const y =
+    Math.random() *
+    (window.innerHeight -
+    noBtn.offsetHeight);
+
+    noBtn.style.position =
+    "fixed";
+
+    noBtn.style.left =
+    x + "px";
+
+    noBtn.style.top =
+    y + "px";
 }
-noBtn.addEventListener("mouseover", moveButton);
 
-/* YES BUTTON CLICK */
-yesBtn.addEventListener("click", function() {
+noBtn.addEventListener(
+    "mouseover",
+    moveButton
+);
 
-    message.innerHTML = `
-        💐💖 Happy Mother’s Day Neha 💖💐 <br><br>
+/* YES BUTTON */
 
-        Thank you for being the sweetest, most caring, and most beautiful person in my life. 🌸<br><br>
+yesBtn.addEventListener(
+    "click",
 
-        These 2 months with you have been filled with happiness, comfort, laughter, and love. ❤️<br><br>
+function() {
 
-        Today you unlock:<br><br>
+message.innerHTML = `
 
-        ✨ Unlimited Love & Attention <br>
-        ✨ Premium Princess Treatment 👑 <br>
-        ✨ Random Memes & Cute Spam <br>
-        ✨ Free Hugs & Emotional Support 🤍 <br>
-        ✨ Lifetime Access To My Heart 💌 <br><br>
+💐💖 HAPPY MOTHER'S DAY NEHA 💖💐
+<br><br>
 
-        I’m lucky to have you, Neha. 💕
-        `;
+Thank you for being the
+sweetest, cutest and most
+caring person in my life 🌸
+<br><br>
 
-    container.style.paddingTop = "40px";
+These 2 months with you
+have been filled with
+love, happiness,
+comfort and laughter ❤️
+<br><br>
 
-    startConfetti();
-    startHearts();
+Today you unlock:
+<br><br>
+
+✨ Unlimited Love & Attention <br>
+✨ Premium Princess Treatment 👑 <br>
+✨ Cute Spam & Memes 😂💌 <br>
+✨ Emotional Support Forever 🤍 <br>
+✨ Unlimited Hugs 🫂 <br>
+✨ Lifetime Access To My Heart 💖 <br><br>
+
+I love you so much Neha 💕
+Happy Mother’s Day to the
+future amazing mom 🌷
+<br><br>
+
+💌 From Ariyavendhan,
+Nehalakshmi,
+Nehaswathi &
+Athvidhyanaathan Saaluvar
+
+`;
+
+container.style.paddingTop =
+"40px";
+
+startConfetti();
+
+startHearts();
+
 });
 
 /* FLOATING HEARTS */
+
 function startHearts() {
 
-    function createHeart() {
+function createHeart() {
 
-        const heart = document.createElement("div");
+const heart =
+document.createElement("div");
 
-        heart.classList.add("heart");
+heart.classList.add("heart");
 
-        heart.innerHTML = "💖";
+heart.innerHTML = "💖";
 
-        heart.style.left =
-            Math.random() * container.offsetWidth + "px";
+heart.style.left =
+Math.random() *
+container.offsetWidth + "px";
 
-        heart.style.bottom = "0px";
+heart.style.bottom = "0px";
 
-        heart.style.fontSize =
-            (Math.random() * 20 + 15) + "px";
+heart.style.fontSize =
+(Math.random() * 20 + 15)
++ "px";
 
-        heart.style.animationDuration =
-            (Math.random() * 3 + 3) + "s";
+heart.style.animationDuration =
+(Math.random() * 3 + 3)
++ "s";
 
-        container.appendChild(heart);
+container.appendChild(heart);
 
-        setTimeout(() => heart.remove(), 6000);
-    }
+setTimeout(() => {
 
-    setInterval(createHeart, 400);
+heart.remove();
+
+}, 6000);
 }
 
-/* CONFETTI EFFECT */
-const canvas = document.getElementById("confetti");
-const ctx = canvas.getContext("2d");
+setInterval(createHeart, 400);
+}
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+/* CONFETTI */
+
+const canvas =
+document.getElementById("confetti");
+
+const ctx =
+canvas.getContext("2d");
+
+canvas.width =
+window.innerWidth;
+
+canvas.height =
+window.innerHeight;
 
 let confettiPieces = [];
 
 function startConfetti() {
 
-    confettiPieces = [];
+confettiPieces = [];
 
-    for (let i = 0; i < 300; i++) {
+for(let i = 0; i < 300; i++) {
 
-        confettiPieces.push({
+confettiPieces.push({
 
-            x: canvas.width / 2,
-            y: canvas.height / 2,
+x: canvas.width / 2,
 
-            size: Math.random() * 8 + 4,
+y: canvas.height / 2,
 
-            speedX: (Math.random() - 0.5) * 20,
+size:
+Math.random() * 8 + 4,
 
-            speedY: (Math.random() - 0.5) * 20,
+speedX:
+(Math.random() - 0.5) * 20,
 
-            color: `hsl(${Math.random()*360},100%,50%)`,
+speedY:
+(Math.random() - 0.5) * 20,
 
-            life: 120
-        });
-    }
+color:
+`hsl(${Math.random()*360},
+100%,50%)`,
 
-    animateConfetti();
+life:120
+
+});
+}
+
+animateConfetti();
 }
 
 function animateConfetti() {
 
-    ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.clearRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
 
-    confettiPieces.forEach((p,index)=>{
+confettiPieces.forEach((p,index)=>{
 
-        ctx.fillStyle = p.color;
+ctx.fillStyle = p.color;
 
-        ctx.fillRect(p.x,p.y,p.size,p.size);
+ctx.fillRect(
+p.x,
+p.y,
+p.size,
+p.size
+);
 
-        p.x += p.speedX;
+p.x += p.speedX;
 
-        p.y += p.speedY;
+p.y += p.speedY;
 
-        p.speedY += 0.4;
+p.speedY += 0.4;
 
-        p.life--;
+p.life--;
 
-        if(p.life <= 0)
-            confettiPieces.splice(index,1);
-    });
+if(p.life <= 0)
+confettiPieces.splice(index,1);
 
-    if(confettiPieces.length > 0)
-        requestAnimationFrame(animateConfetti);
+});
+
+if(confettiPieces.length > 0)
+requestAnimationFrame(
+animateConfetti
+);
 }
 
-/* SIGNATURE */
-const signature = document.createElement("div");
-
-signature.innerHTML = `
-<br><br>
-💌 From Ariyavendhan, Nehalakshmi,
-Nehaswathi & Athvidhyanaathan Saaluvar
-`;
-
-signature.style.marginTop = "20px";
-signature.style.fontSize = "18px";
-signature.style.color = "#ff4f81";
-
-container.appendChild(signature);
-
 </script>
+
+</body>
+</html>
