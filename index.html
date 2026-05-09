@@ -6,84 +6,152 @@ const bgMusic = document.getElementById("bgMusic");
 const container = document.querySelector('.container');
 
 /* PLAY MUSIC AFTER FIRST INTERACTION */
-document.body.addEventListener("click", () => { bgMusic.play().catch(()=>{}); }, { once: true });
+document.body.addEventListener("click", () => {
+    bgMusic.play().catch(()=>{});
+}, { once: true });
 
 /* MOVE NO BUTTON ON HOVER */
 function moveButton() {
     const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
     const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+
     noBtn.style.position = "fixed";
     noBtn.style.left = x + "px";
     noBtn.style.top = y + "px";
 }
 noBtn.addEventListener("mouseover", moveButton);
 
-/* YES CLICK */
+/* YES BUTTON CLICK */
 yesBtn.addEventListener("click", function() {
-    // Show the baddie perks
+
     message.innerHTML = `
-        😍😍😍😍 You have unlocked: <strong>"Baddie Perks 😎"</strong> <br><br>
-        ✔ Manbeating on demand <br>
-        ✔ Attentive listening to yaps <br>
-        ✔ Random meme sharing <br>
-        ✔ Mild roasting, professional level <br>
-        ✔ Premium chaos management 🎆💕
-    `;
-    container.style.paddingTop = "40px"; // Adjust padding
+        💐💖 Happy Mother’s Day Neha 💖💐 <br><br>
+
+        Thank you for being the sweetest, most caring, and most beautiful person in my life. 🌸<br><br>
+
+        These 2 months with you have been filled with happiness, comfort, laughter, and love. ❤️<br><br>
+
+        Today you unlock:<br><br>
+
+        ✨ Unlimited Love & Attention <br>
+        ✨ Premium Princess Treatment 👑 <br>
+        ✨ Random Memes & Cute Spam <br>
+        ✨ Free Hugs & Emotional Support 🤍 <br>
+        ✨ Lifetime Access To My Heart 💌 <br><br>
+
+        I’m lucky to have you, Neha. 💕
+        `;
+
+    container.style.paddingTop = "40px";
+
     startConfetti();
     startHearts();
 });
 
-/* FLOATING HEARTS AFTER YES */
+/* FLOATING HEARTS */
 function startHearts() {
+
     function createHeart() {
+
         const heart = document.createElement("div");
+
         heart.classList.add("heart");
+
         heart.innerHTML = "💖";
-        heart.style.left = Math.random() * container.offsetWidth + "px";
+
+        heart.style.left =
+            Math.random() * container.offsetWidth + "px";
+
         heart.style.bottom = "0px";
-        heart.style.fontSize = (Math.random() * 20 + 15) + "px";
-        heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+
+        heart.style.fontSize =
+            (Math.random() * 20 + 15) + "px";
+
+        heart.style.animationDuration =
+            (Math.random() * 3 + 3) + "s";
+
         container.appendChild(heart);
+
         setTimeout(() => heart.remove(), 6000);
     }
+
     setInterval(createHeart, 400);
 }
 
-/* CONFETTI */
+/* CONFETTI EFFECT */
 const canvas = document.getElementById("confetti");
 const ctx = canvas.getContext("2d");
+
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+
 let confettiPieces = [];
 
 function startConfetti() {
+
     confettiPieces = [];
+
     for (let i = 0; i < 300; i++) {
+
         confettiPieces.push({
+
             x: canvas.width / 2,
             y: canvas.height / 2,
+
             size: Math.random() * 8 + 4,
+
             speedX: (Math.random() - 0.5) * 20,
+
             speedY: (Math.random() - 0.5) * 20,
+
             color: `hsl(${Math.random()*360},100%,50%)`,
+
             life: 120
         });
     }
+
     animateConfetti();
 }
 
 function animateConfetti() {
+
     ctx.clearRect(0,0,canvas.width,canvas.height);
+
     confettiPieces.forEach((p,index)=>{
+
         ctx.fillStyle = p.color;
+
         ctx.fillRect(p.x,p.y,p.size,p.size);
+
         p.x += p.speedX;
+
         p.y += p.speedY;
+
         p.speedY += 0.4;
+
         p.life--;
-        if(p.life<=0) confettiPieces.splice(index,1);
+
+        if(p.life <= 0)
+            confettiPieces.splice(index,1);
     });
-    if(confettiPieces.length>0) requestAnimationFrame(animateConfetti);
+
+    if(confettiPieces.length > 0)
+        requestAnimationFrame(animateConfetti);
 }
+
+/* SIGNATURE */
+const signature = document.createElement("div");
+
+signature.innerHTML = `
+<br><br>
+💌 From Ariyavendhan, Nehalakshmi,
+Nehaswathi & Athvidhyanaathan Saaluvar
+`;
+
+signature.style.marginTop = "20px";
+signature.style.fontSize = "18px";
+signature.style.color = "#ff4f81";
+
+container.appendChild(signature);
+
 </script>
